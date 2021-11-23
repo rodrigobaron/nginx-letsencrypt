@@ -1,6 +1,6 @@
 # Nginx-Letsencrypt Docker
 
-An Nginx + Letsencrypt Docker container which self-sign the certificate and proxy to real application.
+An Nginx + Letsencrypt Docker container which self-sign the certificate and reverse-proxy to application.
 
 ## How to use:
 To generate certificate each time (WARN: you can generate only 10 certificates in time span of 3 hours, check the [rate limit](https://letsencrypt.org/docs/rate-limits/) / IP):
