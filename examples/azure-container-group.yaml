@@ -1,0 +1,43 @@
+api-version: 2019-12-01
+location: westus
+name: app-with-ssl
+properties:
+  containers:
+  - name: nginx-with-ssl
+    properties:
+      image: rodrigobaron/nginx-letsencrypt
+      ports:
+      - port: 443
+        protocol: TCP
+      - port: 80
+        protocol: TCP
+      resources:
+        requests:
+          cpu: 1.0
+          memoryInGB: 1.5
+  - name: my-app
+    properties:
+      image: mcr.microsoft.com/azuredocs/aci-helloworld
+      ports:
+      - port: 8080
+        protocol: TCP
+      resources:
+        requests:
+          cpu: 1.0
+          memoryInGB: 1.5
+      environmentVariables:
+        - name: 'DOMAIN'
+          value: 'my-app.westus.azurecontainer.io'
+        - name: 'EMAIL'
+          value: 'email@example.com'
+  ipAddress:
+    ports:
+    - port: 443
+      protocol: TCP
+    - port: 80
+      protocol: TCP
+    type: Public
+    dnsNameLabel: my-app
+  osType: Linux
+tags: null
+type: Microsoft.ContainerInstance/containerGroups
